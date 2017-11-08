@@ -1,0 +1,17 @@
+[Unit]
+Description=<%= @node['ark']['gameserver']['configuration']['SessionSettings']['SessionName'] %>
+Wants=network-online.target
+After=syslog.target network.target nss-lookup.target network-online.target
+
+[Service]
+WorkingDirectory=<%= @node['ark']['install_dir'] %>/<%= @node['ark']['appid'] %>/ShooterGame/Binaries/Linux
+ExecStartPre=<%= @node['steam']['steamcmd']['install_dir'] %>/steamcmd.sh +login anonymous +force_install_dir <%= @node['ark']['install_dir'] %>/<%= @node['ark']['appid'] %> +app_update <%= @node['ark']['appid'] %> +quit
+ExecStart=<%= @node['ark']['install_dir'] %>/<%= @node['ark']['appid'] %>/ShooterGame/Binaries/Linux/ShooterGameServer <%= @node['ark']['gameserver']['configuration']['map'] %>?listen?MaxPlayers=<%= @node['ark']['gameserver']['configuration']['MaxPlayers'] %>?Port=<%= @node['ark']['gameserver']['configuration']['ListenPort'] %>?QueryPort=<%= @node['ark']['gameserver']['configuration']['QueryPort'] %><% @node['ark']['gameserver']['configuration']['ServerSettings'].each do |option, value| %>?<%= option %>=<%= value %><% end %><% if @node['ark']['gameserver']['configuration']['ActiveMods'] %>?ActiveMods=<% @node['ark']['gameserver']['configuration']['ActiveMods'].each do |mod| %><%= mod %>,<% end %><% end %><% if @node['ark']['gameserver']['configuration']['battleeye'] %> -UseBattlEye<% end %> -server -log
+LimitNOFILE=100000
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s INT $MAINPID
+User=<%= @node['steam']['user'] %>
+Group=<%= @node['steam']['user'] %>
+
+[Install]
+WantedBy=multi-user.target

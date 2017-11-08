@@ -1,0 +1,28 @@
+[ServerSettings]
+<% @node['ark']['gameserver']['configuration']['ServerSettings'].each do |setting, value| -%>
+<%= setting %>=<%= value %>
+<% end -%>
+<% if @node['ark']['gameserver']['configuration']['ActiveMods'] -%>
+ActiveMods=<% @node['ark']['gameserver']['configuration']['ActiveMods'].each do |modid| %><%= modid %>,<% end %>
+<% end -%>
+
+[/Script/ShooterGame.ShooterGameUserSettings]
+<% @node['ark']['gameserver']['configuration']['ShooterGameUserSettings'].each do |setting, value| -%>
+<%= setting %>=<%= value %>
+<% end -%>
+
+[ScalabilityGroups]
+<% @node['ark']['gameserver']['configuration']['ScalabilityGroups'].each do |setting, value| -%>
+sg.<%= setting %>=<%= value %>
+<% end -%>
+
+[SessionSettings]
+SessionName=<%= @SessionName %>
+
+
+[MessageOfTheDay]
+<% @node['ark']['gameserver']['configuration']['MessageOfTheDay'].each do |setting, value| -%>
+<%= setting %>=<%= value %>
+<% end -%>
+
+[/Script/Engine.GameSession]

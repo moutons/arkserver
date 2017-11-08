@@ -1,0 +1,54 @@
+{
+  "name": "chef-arkserver",
+  "description": "Installs and Configures Ark Survival Evolved Dedicated Server",
+  "long_description": "# Ark: Survival Evolved Chef Cookbook\n[![Build Status](https://travis-ci.org/f0rkz/chef-arkserver.svg)](https://travis-ci.org/f0rkz/chef-arkserver)[![Cookbook Version](https://img.shields.io/cookbook/v/chef-arkserver.svg)](https://supermarket.chef.io/cookbooks/chef-arkserver)\n\nThis cookbook will install and configure an Ark: Survival Evolved dedicated\nserver. Utilize the following README for more information on how to utilize this\ncookbook.\n\n## Usage\n\nInclude `chef-arkserver` in your node's runlist\n\n## Configuration\nIn order to properly utilize this cookbook, a suite of default configuration\noptions are included in the cookbook's `attributes/default.rb` file. You will\nneed to override the default options in your cookbook's node configuration.\n\nAn example of overriding configuration options is structured as follows:\n\n```json\n{\n  \"name\": \"my.ark.server.net\",\n  \"chef_environment\": \"_default\",\n  \"normal\": {\n    \"ark\": {\n      \"gameserver\": {\n        \"configuration\": {\n          \"map\": \"ScorchedEarth_P\",\n          \"ServerSettings\": {\n            \"XPMultiplier\": \"5.0000\",\n            \"TamingSpeedMultiplier\": \"2.0000\",\n            \"RCONPort\": 27025\n          },\n          \"SessionSettings\": {\n            \"SessionName\": \"My Ark Dedicated Server\"\n          },\n          \"MessageOfTheDay\": {\n            \"Message\": \"Welcome to my ARK Server dot Net\\nPlease enjoy your stay!\"\n          }\n        }\n      }\n    },\n    \"tags\": [\n\n    ]\n  },\n  \"policy_name\": null,\n  \"policy_group\": null,\n  \"run_list\": [\n  \"role[base]\",\n  \"recipe[]\"\n]\n\n}\n```\n\nThis configuration will build your `GameUserSettings.ini` file with the requested\noverrided options defined above.\n",
+  "maintainer": "Nick Gray",
+  "maintainer_email": "f0rkz@f0rkznet.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-steamcmd": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.6.1",
+  "source_url": "https://github.com/f0rkz/chef-arkserver",
+  "issues_url": "https://github.com/f0rkz/chef-arkserver/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

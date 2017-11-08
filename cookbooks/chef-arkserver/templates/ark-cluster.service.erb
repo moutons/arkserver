@@ -1,0 +1,17 @@
+[Unit]
+Description=ARK Cluster <%= @node['ark']['gameserver']['cluster']['ClusterID'] %> - <%= @map %>
+Wants=network-online.target
+After=syslog.target network.target nss-lookup.target network-online.target
+
+[Service]
+WorkingDirectory=<%= @node['ark']['install_dir'] %>/<%= @node['ark']['appid'] %>/<%= @map %>/ShooterGame/Binaries/Linux
+ExecStartPre=<%= @node['steam']['steamcmd']['install_dir'] %>/steamcmd.sh +login anonymous +force_install_dir <%= @node['ark']['install_dir'] %>/<%= @node['ark']['appid'] %>/<%= @map %> +app_update <%= @node['ark']['appid'] %> +quit
+ExecStart=<%= @node['ark']['install_dir'] %>/<%= @node['ark']['appid'] %>/<%= @map %>/ShooterGame/Binaries/Linux/ShooterGameServer <%= @map %>?listen?MaxPlayers=<%= @node['ark']['gameserver']['configuration']['MaxPlayers'] %>?Port=<%= @listen_port %>?QueryPort=<%= @query_port %>?AltSaveDirectoryName=<%= @map %><% if @node['ark']['gameserver']['configuration']['battleeye'] %> -UseBattlEye<% end %><% if @node['ark']['gameserver']['cluster']['NoTransferFromFiltering'] %> -NoTransferFromFiltering<% end %> -ClusterDirOverride=<%= @cluster_directory %> -clusterid=<%= @node['ark']['gameserver']['cluster']['ClusterID'] %> -server -log
+LimitNOFILE=100000
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s INT $MAINPID
+User=<%= @node['steam']['user'] %>
+Group=<%= @node['steam']['user'] %>
+
+[Install]
+WantedBy=multi-user.target
